@@ -9,6 +9,7 @@ import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.kinesisvideo.auth.DefaultAuthCallbacks;
 import com.amazonaws.kinesisvideo.client.KinesisVideoClientConfiguration;
 import com.amazonaws.kinesisvideo.internal.producer.jni.NativeKinesisVideoProducerJni;
+import com.amazonaws.kinesisvideo.producer.Tag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.amazonaws.kinesisvideo.demoapp.auth.AuthHelper;

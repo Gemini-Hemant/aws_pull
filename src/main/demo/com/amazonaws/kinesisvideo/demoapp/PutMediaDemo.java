@@ -45,10 +45,10 @@ public final class PutMediaDemo {
     private static final String PUT_MEDIA_API = "/putMedia";
 
     /* the name of the stream */
-    private static final String STREAM_NAME = "my-stream";
+    private static final String STREAM_NAME = "test1-stream";
 
     /* sample MKV file */
-    private static final String MKV_FILE_PATH = "src/main/resources/data/mkv/clusters.mkv";
+    private static final String MKV_FILE_PATH = "src/main/resources/data/test-medialive-connection.mp4";
 
     /* max upload bandwidth */
     private static final long MAX_BANDWIDTH_KBPS = 15 * 1024L;
