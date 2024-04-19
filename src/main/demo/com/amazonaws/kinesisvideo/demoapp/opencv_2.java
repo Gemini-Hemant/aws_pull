@@ -97,7 +97,7 @@ public class opencv_2 {
         FFmpegFrameGrabber grabber;
         grabber = new FFmpegFrameGrabber("rtsp://10.50.0.7/live");
 //        grabber.setFormat("h264");
-        grabber.setFrameRa
+        grabber.setFrameRate(30);
         grabber.start();
 
 // 0 represents the default webcam
