@@ -1,18 +1,13 @@
 package com.amazonaws.kinesisvideo.demoapp;
 
-import org.bytedeco.javacv.FFmpegFrameRecorder;
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.OpenCVFrameConverter;
-import org.bytedeco.opencv.opencv_videoio.VideoCapture;
 import org.opencv.core.Mat;
 
 import java.io.*;
-import java.net.*;
 import java.io.IOException;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import org.bytedeco.javacv.Frame;
+import java.net.*;
+
 
 public class HttpClientExample{
 
@@ -27,46 +22,50 @@ public class HttpClientExample{
         String url = "http://10.50.0.7/cgi-bin/foream_remote_control?list_files=/tmp/SD0/DCIM"; // Replace with your API endpoint
         String method = "GET"; // Adjust for POST, PUT, etc.
 
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(url))
-                .method(method, HttpRequest.BodyPublishers.noBody()) // Adjust for POST/PUT with data
-                .build();
+        URL requestUrl = new URL(url);
+        HttpURLConnection connection = (HttpURLConnection) requestUrl.openConnection();
+        connection.setRequestMethod(method);
 
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-        int statusCode = response.statusCode();
+        int responseCode = connection.getResponseCode();
         System.out.println("Sending '" + method + "' request to URL : " + url);
-        System.out.println("Status Code: " + statusCode);
+        System.out.println("Status Code: " + responseCode);
 
-        if (statusCode == 200) { // Handle successful responses
-            String body = response.body();
-            System.out.println("Response body: " + body);
-        } else { // Handle errors
-            System.out.println("Error: Server returned HTTP response code: " + statusCode);
+        if (responseCode == HttpURLConnection.HTTP_OK) { // Handle successful responses
+            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            String line;
+            StringBuilder response = new StringBuilder();
+            while ((line = reader.readLine()) != null) {
+                response.append(line);
+            }
+            reader.close();
+            System.out.println("Response body: " + response.toString());
+        } else {
+            System.out.println("Error: Server returned HTTP response code: " + responseCode);
         }
     }
     public static void stop_recording() throws IOException, InterruptedException {
         String url = "http://10.50.0.7/cgi-bin/foream_remote_control?stop_record"; // Replace with your API endpoint
         String method = "GET"; // Adjust for POST, PUT, etc.
 
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(url))
-                .method(method, HttpRequest.BodyPublishers.noBody()) // Adjust for POST/PUT with data
-                .build();
+        URL requestUrl = new URL(url);
+        HttpURLConnection connection = (HttpURLConnection) requestUrl.openConnection();
+        connection.setRequestMethod(method);
 
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-        int statusCode = response.statusCode();
+        int responseCode = connection.getResponseCode();
         System.out.println("Sending '" + method + "' request to URL : " + url);
-        System.out.println("Status Code: " + statusCode);
+        System.out.println("Status Code: " + responseCode);
 
-        if (statusCode == 200) { // Handle successful responses
-            String body = response.body();
-            System.out.println("Response body: " + body);
+        if (responseCode == HttpURLConnection.HTTP_OK) { // Handle successful responses
+            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            String line;
+            StringBuilder response = new StringBuilder();
+            while ((line = reader.readLine()) != null) {
+                response.append(line);
+            }
+            reader.close();
+            System.out.println("Response body: " + response.toString());
         } else { // Handle errors
-            System.out.println("Error: Server returned HTTP response code: " + statusCode);
+            System.out.println("Error: Server returned HTTP response code: " + responseCode);
         }
     }
     public static void download_video(String path) throws IOException {

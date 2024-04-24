@@ -87,6 +87,10 @@
             <version>1.5.10</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-kinesisvideo</artifactId>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/org.bytedeco.javacpp-presets/opencv-platform -->
         <dependency>
             <groupId>org.bytedeco.javacpp-presets</groupId>
@@ -151,7 +155,10 @@
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-java-sdk-core</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-kinesisvideo</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.google.inject</groupId>
             <artifactId>guice</artifactId>
@@ -295,7 +302,7 @@
                     <archive>
                         <manifest>
                             <!-- Jar file entry point -->
-                            <mainClass>com.amazonaws.kinesisvideo.demoapp.DemoAppMain</mainClass>
+                            <mainClass>com.amazonaws.kinesisvideo.java.DemoAppMain</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -305,7 +312,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.amazonaws.kinesisvideo.demoapp.DemoAppMain</mainClass>
+                            <mainClass>com.amazonaws.kinesisvideo.java.DemoAppMain</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
@@ -325,8 +332,8 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>11</source>
-                    <target>11</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -334,10 +341,9 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.8</version>
                 <configuration>
-                    <mainClass>com.amazonaws.kinesisvideo.demoapp.JavaFx.java </mainClass>
+                    <mainClass>com.amazonaws.kinesisvideo.java.JavaFx</mainClass>
                 </configuration>
             </plugin>
         </plugins>
     </build>
 </project>
-

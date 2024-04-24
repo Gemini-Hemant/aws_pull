@@ -8,13 +8,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.shape.Circle;
 import com.amazonaws.kinesisvideo.demoapp.Threading;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.util.ResourceBundle;
+
 
 public class Controler {
     private boolean isStreaming = false;
@@ -42,46 +42,50 @@ public class Controler {
         String url = "http://10.50.0.7/cgi-bin/foream_remote_control?list_files=/tmp/SD0/DCIM"; // Replace with your API endpoint
         String method = "GET"; // Adjust for POST, PUT, etc.
 
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(url))
-                .method(method, HttpRequest.BodyPublishers.noBody()) // Adjust for POST/PUT with data
-                .build();
+        URL requestUrl = new URL(url);
+        HttpURLConnection connection = (HttpURLConnection) requestUrl.openConnection();
+        connection.setRequestMethod(method);
 
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-        int statusCode = response.statusCode();
+        int responseCode = connection.getResponseCode();
         System.out.println("Sending '" + method + "' request to URL : " + url);
-        System.out.println("Status Code: " + statusCode);
+        System.out.println("Status Code: " + responseCode);
 
-        if (statusCode == 200) { // Handle successful responses
-            String body = response.body();
-            System.out.println("Response body: " + body);
+        if (responseCode == HttpURLConnection.HTTP_OK) { // Handle successful responses
+            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            String line;
+            StringBuilder response = new StringBuilder();
+            while ((line = reader.readLine()) != null) {
+                response.append(line);
+            }
+            reader.close();
+            System.out.println("Response body: " + response.toString());
         } else { // Handle errors
-            System.out.println("Error: Server returned HTTP response code: " + statusCode);
+            System.out.println("Error: Server returned HTTP response code: " + responseCode);
         }
     }
     public void stop_recording() throws IOException, InterruptedException {
         String url = "http://10.50.0.7/cgi-bin/foream_remote_control?stop_record"; // Replace with your API endpoint
         String method = "GET"; // Adjust for POST, PUT, etc.
 
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(url))
-                .method(method, HttpRequest.BodyPublishers.noBody()) // Adjust for POST/PUT with data
-                .build();
+        URL requestUrl = new URL(url);
+        HttpURLConnection connection = (HttpURLConnection) requestUrl.openConnection();
+        connection.setRequestMethod(method);
 
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-        int statusCode = response.statusCode();
+        int responseCode = connection.getResponseCode();
         System.out.println("Sending '" + method + "' request to URL : " + url);
-        System.out.println("Status Code: " + statusCode);
+        System.out.println("Status Code: " + responseCode);
 
-        if (statusCode == 200) { // Handle successful responses
-            String body = response.body();
-            System.out.println("Response body: " + body);
+        if (responseCode == HttpURLConnection.HTTP_OK) { // Handle successful responses
+            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            String line;
+            StringBuilder response = new StringBuilder();
+            while ((line = reader.readLine()) != null) {
+                response.append(line);
+            }
+            reader.close();
+            System.out.println("Response body: " + response.toString());
         } else { // Handle errors
-            System.out.println("Error: Server returned HTTP response code: " + statusCode);
+            System.out.println("Error: Server returned HTTP response code: " + responseCode);
         }
     }
     public void stream_recording(){

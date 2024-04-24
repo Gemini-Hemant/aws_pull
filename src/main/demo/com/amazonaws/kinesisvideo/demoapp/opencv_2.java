@@ -17,20 +17,11 @@ import org.bytedeco.javacpp.avcodec;
 import org.bytedeco.javacv.*;
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.CanvasFrame;
-import org.jcodec.common.model.Picture;
-import org.jetbrains.annotations.NotNull;
 import org.opencv.core.Mat;
-import org.opencv.core.MatOfByte;
-import org.opencv.highgui.HighGui;
-import org.opencv.imgcodecs.Imgcodecs;
-import org.opencv.videoio.VideoCapture;
-import org.bytedeco.opencv.opencv_core.*;
 
 import java.util.*;
 
 //import org.apache.commons.lang.serialization.utils;
-import java.awt.*;
-import java.awt.image.BufferedImage;
 //import javaio.ByteArrayOutputStream;
 
 //import org.jcodec.common.Codec;
@@ -43,7 +34,6 @@ import java.awt.image.BufferedImage;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.Instant;
@@ -77,7 +67,7 @@ public class opencv_2 {
 
         nu.pattern.OpenCV.loadShared();
         final AmazonKinesisVideo frontendClient = AmazonKinesisVideoAsyncClient.builder()
-                .withCredentials(AuthHelper.getSystemPropertiesCredentialsProvider())
+                .withCredentials(com.amazonaws.kinesisvideo.demoapp.auth.AuthHelper.getSystemPropertiesCredentialsProvider())
                 .withRegion(DEFAULT_REGION)
                 .build();
 
@@ -90,14 +80,14 @@ public class opencv_2 {
 
         // Set up the OpenCVFrameGrabber to capture frames from the webcam
 //        FFmpegFrameGrabber grabber = new FFmpegFrameGrabber("rtsp://10.50.0.7/live");
-//        FrameGrabber grabber = new OpenCVFrameGrabber(0);
+        FrameGrabber grabber = new OpenCVFrameGrabber(0);
 //        System.out.print("rtsp://10.50.0.7:554/live");
 ////        Scanner scanner = new Scanner(System.in);
 ////        String rtspUrl = scanner.nextLine();
-        FFmpegFrameGrabber grabber;
-        grabber = new FFmpegFrameGrabber("rtsp://10.50.0.7/live");
-//        grabber.setFormat("h264");
-        grabber.setFrameRate(30);
+//        FFmpegFrameGrabber grabber;
+//        grabber = new FFmpegFrameGrabber("rtsp://10.50.0.7/live");
+////        grabber.setFormat("h264");
+//        grabber.setFrameRate(30);
         grabber.start();
 
 // 0 represents the default webcam
@@ -268,4 +258,3 @@ public class opencv_2 {
     }
 
 }
-

@@ -18,9 +18,8 @@ import com.amazonaws.kinesisvideo.producer.StreamStatus;
 import com.amazonaws.kinesisvideo.producer.Tag;
 import com.amazonaws.kinesisvideo.producer.Time;
 import com.amazonaws.services.kinesisvideo.model.DescribeStreamResult;
-import edu.umd.cs.findbugs.annotations.NonNull;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -37,9 +36,9 @@ import static com.amazonaws.kinesisvideo.util.StreamInfoConstants.HTTP_BAD_REQUE
 import static com.amazonaws.kinesisvideo.util.StreamInfoConstants.HTTP_OK;
 
 public class CachedInfoMultiAuthServiceCallbacksImpl extends DefaultServiceCallbacksImpl {
-    public CachedInfoMultiAuthServiceCallbacksImpl(@Nonnull Logger log, @Nonnull ScheduledExecutorService executor,
-                                                   @Nonnull KinesisVideoClientConfiguration configuration,
-                                                   @Nonnull KinesisVideoServiceClient kinesisVideoServiceClient) {
+    public CachedInfoMultiAuthServiceCallbacksImpl(@NotNull Logger log, @NotNull ScheduledExecutorService executor,
+                                                   @NotNull KinesisVideoClientConfiguration configuration,
+                                                   @NotNull KinesisVideoServiceClient kinesisVideoServiceClient) {
         super(log, executor, configuration, kinesisVideoServiceClient);
     }
 
@@ -70,7 +69,7 @@ public class CachedInfoMultiAuthServiceCallbacksImpl extends DefaultServiceCallb
      * @param kinesisVideoProducer Reference to {@link KinesisVideoProducer} for the eventing.
      */
     @Override
-    public void initialize(@Nonnull final KinesisVideoProducer kinesisVideoProducer) {
+    public void initialize(@NotNull final KinesisVideoProducer kinesisVideoProducer) {
         Preconditions.checkState(!isInitialized(), "Service callback object has already been initialized");
         this.kinesisVideoProducer = Preconditions.checkNotNull(kinesisVideoProducer);
     }
@@ -81,9 +80,9 @@ public class CachedInfoMultiAuthServiceCallbacksImpl extends DefaultServiceCallb
     }
 
     @Override
-    public void createStream(@Nonnull final String deviceName,
-                             @Nonnull final String streamName,
-                             @Nonnull final String contentType,
+    public void createStream(@NotNull final String deviceName,
+                             @NotNull final String streamName,
+                             @NotNull final String contentType,
                              @Nullable final String kmsKeyId,
                              final long retentionPeriod,
                              final long callAfter,
@@ -98,7 +97,7 @@ public class CachedInfoMultiAuthServiceCallbacksImpl extends DefaultServiceCallb
 
     @Override
     public void describeStream(
-            @Nonnull final String streamName,
+            @NotNull final String streamName,
             final long callAfter,
             final long timeout,
             @Nullable final byte[] authData,
@@ -121,8 +120,8 @@ public class CachedInfoMultiAuthServiceCallbacksImpl extends DefaultServiceCallb
 
     @Override
     public void getStreamingEndpoint(
-            @Nonnull final String streamName,
-            @Nonnull final String apiName,
+            @NotNull final String streamName,
+            @NotNull final String apiName,
             final long callAfter,
             final long timeout,
             @Nullable final byte[] authData,
@@ -143,7 +142,7 @@ public class CachedInfoMultiAuthServiceCallbacksImpl extends DefaultServiceCallb
 
     @Override
     public void getStreamingToken(
-            @Nonnull final String streamName,
+            @NotNull final String streamName,
             final long callAfter,
             final long timeout,
             @Nullable final byte[] authData,
@@ -199,7 +198,7 @@ public class CachedInfoMultiAuthServiceCallbacksImpl extends DefaultServiceCallb
     }
 
     @Override
-    public void tagResource(@Nonnull final String resourceArn,
+    public void tagResource(@NotNull final String resourceArn,
                             @Nullable final Tag[] tagsUnused,
                             final long callAfter,
                             final long timeout,
@@ -304,7 +303,7 @@ public class CachedInfoMultiAuthServiceCallbacksImpl extends DefaultServiceCallb
                 - System.currentTimeMillis() * Time.NANOS_IN_A_MILLISECOND);
     }
 
-    private static StreamDescription toStreamDescription(final @NonNull DescribeStreamResult result) {
+    private static StreamDescription toStreamDescription(final @NotNull DescribeStreamResult result) {
         checkNotNull(result);
         return new StreamDescription(
                 StreamDescription.STREAM_DESCRIPTION_CURRENT_VERSION,
